@@ -1,0 +1,10 @@
+name: twist-2025-self-organization-kaic-bz
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  # Basis-Abhängigkeiten aus dem Hauptprojekt
+  - pip:
+      - -r ../../requirements.txt
+      # ggf. paper-spezifische Extras hier ergänzen
