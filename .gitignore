@@ -1,0 +1,7 @@
+
+# Paper-specific raw data (too large for git)
+papers/2025-sigma-lock-animal-movement/data/raw/
+*.gz
+*.zip
+*.tar
+*.tar.gz
