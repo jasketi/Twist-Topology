@@ -2,7 +2,7 @@
 
 This directory contains the analysis code and notebooks used for the paper
 
-> Ascher, J. (20XX). *Sigma-Twist in Tierverhalten* (working title).
+> Ascher, J. (2025). *Episodic σ-Locks and Topological Stability in Animal Movement*.
 
 The **general σ-Lock / TwistX framework** and core algorithms live in the main
 repository structure:
