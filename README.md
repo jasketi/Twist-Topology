@@ -22,3 +22,4 @@ papers/
   2025-sigma-lock-dynamical-systems/
   2025-self-organization-kaic-bz/
   2025-periodic-dna-self-stabilization/
+  2025-σ-locks in Molecules: A Twist-Topological View on Chemical Bonding and Stability
