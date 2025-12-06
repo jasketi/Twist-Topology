@@ -46,3 +46,11 @@ examples in the manuscript:
 - `cc_sigma_proxy.py`  
   Computes the vibrational proxy σ_mol^(CC) for the C–C, C=C and C≡C
   bonds used to construct Table 1 and prints the results to the console.
+
+
+## DOI
+
+The archived version of the manuscript is available at:
+
+**https://doi.org/10.5281/zenodo.17832572**
+
