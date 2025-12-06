@@ -23,5 +23,5 @@ papers/
   2025-self-organization-kaic-bz/
   2025-periodic-dna-self-stabilization/
   2025-σ-locks in Molecules/
-  2025- Twist-Topological Constraints on the Origin of Life/
+  2025-Twist-Topological Constraints on the Origin of Life/
    
