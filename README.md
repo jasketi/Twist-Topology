@@ -1,5 +1,8 @@
 # Twist-Topological Framework (σ-Lock / TwistX)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17832572.svg)](https://doi.org/10.5281/zenodo.17832572)
+
+
 This repository contains:
 
 - the generic `twistlab` Python package with σ-Lock, TwistX and related algorithms;
