@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
-import argparse, hashlib, json, os, shutil, zipfile
+import argparse, hashlib, json, shutil, zipfile
 from pathlib import Path
 from datetime import datetime, timezone
 
 REQUIRED = [
-    # KaiC processed
     "data/processed/kaiC/kaiC_summary_metrics.csv",
     "data/processed/kaiC/kaiC_kuramoto_fits.csv",
     "data/processed/kaiC/kaiC_newdata_pairwise_phase_metrics.csv",
     "data/processed/kaiC/kaiC_newdata_summary_metrics.csv",
-    # BZ Fig1 processed
     "data/processed/bz/fig1/bz_fig1_droplets_seconds_summary.csv",
-    # BZ hidden processed
     "data/processed/bz/hidden/bz_hidden_PLI_matrix.csv",
     "data/processed/bz/hidden/bz_hidden_drift_matrix.csv",
     "data/processed/bz/hidden/bz_hidden_all_pairs.csv",
@@ -43,9 +40,7 @@ def main():
         shutil.rmtree(staging)
     staging.mkdir(parents=True)
 
-    missing = []
-    included = []
-
+    missing, included = [], []
     for rel in REQUIRED:
         src = paper_dir / rel
         if not src.exists():
@@ -56,7 +51,6 @@ def main():
         shutil.copy2(src, dst)
         included.append(rel)
 
-    # write manifest + checksums
     manifest = {
         "paper": "2025-self-organization-kaic-bz",
         "timestamp_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
@@ -64,18 +58,12 @@ def main():
         "missing": missing,
         "notes": "Processed inputs bundle for reproducing Table 1 (KaiC), Fig 1 (BZ), Fig 2 (KaiC), Fig S2 (BZ hidden).",
     }
-
     for rel in included:
         p = staging / rel
-        manifest["included"].append({
-            "path": rel,
-            "bytes": p.stat().st_size,
-            "sha256": sha256(p),
-        })
+        manifest["included"].append({"path": rel, "bytes": p.stat().st_size, "sha256": sha256(p)})
 
     (outdir / "inputs_manifest.json").write_text(json.dumps(manifest, indent=2))
 
-    # zip it
     zip_path = outdir / args.zipname
     if zip_path.exists():
         zip_path.unlink()
@@ -85,7 +73,6 @@ def main():
         for rel in included:
             z.write(staging / rel, arcname=rel)
 
-    # clean staging
     shutil.rmtree(staging)
 
     print("Wrote:", zip_path)

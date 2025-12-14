@@ -16,8 +16,7 @@ def main():
     args = ap.parse_args()
 
     root = Path(args.root).resolve()
-    manifest_path = Path(args.manifest).resolve()
-    man = json.loads(manifest_path.read_text())
+    man = json.loads(Path(args.manifest).resolve().read_text())
 
     ok = True
     for item in man.get("included", []):

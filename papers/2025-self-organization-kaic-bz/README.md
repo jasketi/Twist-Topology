@@ -110,3 +110,18 @@ To verify integrity (SHA256), use:
 ```bash
 python papers/2025-self-organization-kaic-bz/scripts/verify_inputs_bundle.py
 ```
+
+## Processed inputs bundle (recommended for full reproduction)
+
+For full reproduction on a fresh clone, download the processed inputs bundle (ZIP) from the project archive (e.g., Zenodo) and unpack it into:
+- 
+
+Then run:
+```bash
+python papers/2025-self-organization-kaic-bz/src/run_all.py --config papers/2025-self-organization-kaic-bz/configs/default.yaml
+```
+
+To verify integrity (SHA256), use:
+```bash
+python papers/2025-self-organization-kaic-bz/scripts/verify_inputs_bundle.py
+```
