@@ -1,20 +1,27 @@
 # 2025-self-organization-kaic-bz
 
-Short description of what this paper does and how to reproduce the results.
+Reproduction bundle for the manuscript:
+**Toward a Twist-Topological Account of Self-Organization: From KaiC to the Belousov–Zhabotinsky Reaction**
 
-## Paper
+## Folder layout
+- configs/: quick vs default paper parameters
+- src/: paper-specific scripts (reproduce figures/tables)
+- data/: local raw/processed data (not committed)
+- results/: generated outputs (not committed)
 
-- Title: (eintragen)
-- Preprint DOI (Zenodo): (eintragen, sobald vorhanden)
-- Journal DOI: (später)
+## Quickstart (scaffold)
+From repo root:
+```bash
+python papers/2025-self-organization-kaic-bz/src/run_all.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
 
-## Code
+## Reproduction targets
+### Table skeletons + run meta (now)
+- results/run_meta.json
+- results/tables_skeleton.csv
+- results/targets.txt
 
-- Generic algorithms: `twistlab/algorithms`
-- Specific scripts and notebooks for this paper: `notebooks/`, `src/`
-
-## How to run
-
-1. Create and activate a virtual environment.
-2. Install dependencies from `environment.yml`.
-3. Run the notebooks in `notebooks/` to reproduce figures and tables.
+### Next wiring steps (TODO)
+- fetch + preprocess KaiC dataset
+- fetch + preprocess BZ dataset (SOTON/D0363)
+- compute W, PLI, dW/dt and regenerate Fig/Table outputs from real data
