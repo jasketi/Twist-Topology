@@ -29,9 +29,40 @@ python papers/2025-self-organization-kaic-bz/src/run_all.py --config papers/2025
 ## KaiC data (manual download)
 
 Download the KaiC source data from the eLife article (DOI: 10.7554/eLife.23539) and place the relevant CSV/TSV under:
-- 
-
+- `papers/2025-self-organization-kaic-bz/data/raw/kaiC/`
 Then run (example):
 ```bash
 python papers/2025-self-organization-kaic-bz/src/preprocess_kaiC.py --infile papers/2025-self-organization-kaic-bz/data/raw/kaiC/<FILE>.csv
 ```
+
+
+
+### Fig S2 (hidden signals; BZ)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_figS2_hidden.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml --indir papers/2025-self-organization-kaic-bz/data/processed/bz/hidden --outdir papers/2025-self-organization-kaic-bz/results
+```
+
+Outputs:
+
+- `results/figS2_hidden_PLI_matrix.png`
+- `results/figS2_hidden_drift_matrix.png`
+- `results/figS2_hidden_pairs_classified.csv`
+- `results/figS2_hidden_summary.json`
+- `results/figS2_hidden_top20_by_PLI.csv`
+
+### Table 1 (KaiC pairwise phase metrics)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_table1_kaiC.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
+
+Outputs:
+
+- `results/table1_kaiC.csv`
+- `results/table1_kaiC_rows.tex`
+- `results/run_meta_table1_kaiC.json`

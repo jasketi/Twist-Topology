@@ -46,6 +46,13 @@ def main():
     print("OK: wrote", outdir / "run_meta.json")
     print("OK: wrote", outdir / "tables_skeleton.csv")
 
+    # Optional: Table 1 (KaiC) if processed pairwise metrics exist
+    kaiC_in = Path("papers/2025-self-organization-kaic-bz/data/processed/kaiC/kaiC_newdata_pairwise_phase_metrics.csv")
+    if kaiC_in.exists():
+        rc = os.system(f"python papers/2025-self-organization-kaic-bz/src/make_table1_kaiC.py --config {args.config} --infile {kaiC_in} --outdir {outdir}")
+        if rc != 0:
+            raise RuntimeError(f"Table1 KaiC step failed with exit code {rc}")
+
     # Optional: Fig S2 (hidden signals) if input files exist
     hidden_dir = Path("papers/2025-self-organization-kaic-bz/data/processed/bz/hidden")
     if (hidden_dir / "bz_hidden_PLI_matrix.csv").exists():
