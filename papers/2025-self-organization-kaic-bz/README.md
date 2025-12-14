@@ -66,3 +66,32 @@ Outputs:
 - `results/table1_kaiC.csv`
 - `results/table1_kaiC_rows.tex`
 - `results/run_meta_table1_kaiC.json`
+
+### Fig 1 (BZ droplets summary)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_fig1_bz.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
+
+Outputs:
+
+- `results/fig1_bz_winding_hist.png`
+- `results/fig1_bz_period_hist.png`
+- `results/fig1_bz_input_head.csv`
+- `results/run_meta_fig1_bz.json`
+
+### Fig 2 (KaiC summary + Kuramoto fits)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_fig2_kaiC.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
+
+Outputs:
+
+- `results/fig2A_kaiC_period_vs_LD.png`
+- `results/fig2B_kaiC_K_vs_Domega.png`
+- `results/run_meta_fig2_kaiC.json`
