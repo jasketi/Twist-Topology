@@ -18,7 +18,7 @@ The paper references `papers/sigma-lock-ews` as the location for paper-specific 
 From repository root:
 
 ```bash
-python -m papers.sigma_lock_ews.src.run_lorenz_ews --config papers/sigma-lock-ews/configs/quick.yaml
+python papers/sigma-lock-ews/src/run_lorenz_ews.py --config papers/sigma-lock-ews/configs/quick.yaml
 ```
 
 Outputs:
@@ -29,7 +29,7 @@ Outputs:
 ## Full reproduction
 
 ```bash
-python -m papers.sigma_lock_ews.src.run_lorenz_ews --config papers/sigma-lock-ews/configs/default.yaml
+python papers/sigma-lock-ews/src/run_lorenz_ews.py --config papers/sigma-lock-ews/configs/default.yaml
 ```
 
 ## Environment
@@ -64,7 +64,7 @@ Outputs:
 ### Smoke test (pipeline scaffold)
 
 ```bash
-python -m papers.sigma_lock_ews.src.run_lorenz_ews --config papers/sigma-lock-ews/configs/quick.yaml
+python papers/sigma-lock-ews/src/run_lorenz_ews.py --config papers/sigma-lock-ews/configs/quick.yaml
 ```
 
 Outputs:
