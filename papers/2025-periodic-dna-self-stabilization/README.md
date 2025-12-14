@@ -1,20 +1,34 @@
 # 2025-periodic-dna-self-stabilization
 
-Short description of what this paper does and how to reproduce the results.
+This folder contains the manuscript and a reproducible analysis of cross-correlation data from Patel et al. (2023),
+supporting the paper:
 
-## Paper
+**Periodic Self-Stabilization of DNA Activity Reveals a Geometric Feedback Between Structure and Function**
+Jörg Ascher (Independent Researcher, Germany)
 
-- Title: (eintragen)
-- Preprint DOI (Zenodo): (eintragen, sobald vorhanden)
-- Journal DOI: (später)
+## Contents
+- `paper/` — compiled paper PDF (`paper.pdf`)
+- `figures/` — generated figures used in the manuscript
+- `data/raw/` — 26 cross-correlation curves (*cross-correlation*.txt), see `SOURCE.md`
+- `src/make_figures.py` — regenerates all figures and a derived summary table
+- `outputs/fit_parameters.csv` — derived summary table (generated)
 
-## Code
+## Reproduce figures and outputs (one command)
 
-- Generic algorithms: `twistlab/algorithms`
-- Specific scripts and notebooks for this paper: `notebooks/`, `src/`
+From the repository root:
 
-## How to run
+    python3 papers/2025-periodic-dna-self-stabilization/src/make_figures.py
 
-1. Create and activate a virtual environment.
-2. Install dependencies from `environment.yml`.
-3. Run the notebooks in `notebooks/` to reproduce figures and tables.
+Expected outputs:
+
+    ls -lah papers/2025-periodic-dna-self-stabilization/figures \
+           papers/2025-periodic-dna-self-stabilization/outputs
+
+This will regenerate:
+- `figures/fig_cis_trans.(png|pdf)`
+- `figures/fig_modulators.(png|pdf)`
+- `outputs/fit_parameters.csv`
+
+## Data provenance
+See `data/raw/SOURCE.md` for the upstream dataset reference and notes on duplicated basenames.
+
