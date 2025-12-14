@@ -54,6 +54,21 @@ def main():
             raise RuntimeError(f"Table1 KaiC step failed with exit code {rc}")
 
     # Optional: Fig S2 (hidden signals) if input files exist
+
+    # Optional: Fig 2 (KaiC summary + Kuramoto fits) if processed CSVs exist
+    kaiC_sum = Path("papers/2025-self-organization-kaic-bz/data/processed/kaiC/kaiC_summary_metrics.csv")
+    kaiC_kur = Path("papers/2025-self-organization-kaic-bz/data/processed/kaiC/kaiC_kuramoto_fits.csv")
+    if kaiC_sum.exists() and kaiC_kur.exists():
+        rc = os.system(f"python papers/2025-self-organization-kaic-bz/src/make_fig2_kaiC.py --config {args.config} --summary_csv {kaiC_sum} --kuramoto_csv {kaiC_kur} --outdir {outdir}")
+        if rc != 0:
+            raise RuntimeError(f"Fig2 KaiC step failed with exit code {rc}")
+
+    # Optional: Fig 1 (BZ droplets summary) if processed fig1 file exists
+    bz_fig1_in = Path("papers/2025-self-organization-kaic-bz/data/processed/bz/fig1/bz_fig1_droplets_seconds_summary.csv")
+    if bz_fig1_in.exists():
+        rc = os.system(f"python papers/2025-self-organization-kaic-bz/src/make_fig1_bz.py --config {args.config} --infile {bz_fig1_in} --outdir {outdir}")
+        if rc != 0:
+            raise RuntimeError(f"Fig1 BZ step failed with exit code {rc}")
     hidden_dir = Path("papers/2025-self-organization-kaic-bz/data/processed/bz/hidden")
     if (hidden_dir / "bz_hidden_PLI_matrix.csv").exists():
         cmd = (
