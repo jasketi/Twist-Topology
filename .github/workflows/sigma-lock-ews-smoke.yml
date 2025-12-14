@@ -1,0 +1,36 @@
+name: sigma-lock-ews smoke
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install minimal deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pyyaml
+
+      - name: Run EWS scaffold (quick)
+        run: |
+          python -m papers.sigma_lock_ews.src.run_lorenz_ews --config papers/sigma-lock-ews/configs/quick.yaml
+          test -f papers/sigma-lock-ews/results/run_meta.json
+          test -f papers/sigma-lock-ews/results/PLACEHOLDER.txt
+
+      - name: Run Table 1 (quick settings via quick.yaml)
+        run: |
+          python papers/sigma-lock-ews/src/make_table1_lorenz.py --config papers/sigma-lock-ews/configs/quick.yaml --outdir papers/sigma-lock-ews/results
+          test -f papers/sigma-lock-ews/results/table1_lorenz.csv
+          test -f papers/sigma-lock-ews/results/table1_lorenz_rows.tex
+          test -f papers/sigma-lock-ews/results/run_meta_table1_lorenz.json
