@@ -8,3 +8,11 @@ papers/2025-sigma-lock-animal-movement/data/raw/
 
 # Paper outputs
 papers/sigma-lock-ews/results/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
