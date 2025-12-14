@@ -28,3 +28,8 @@ papers/2025-self-organization-kaic-bz/inputs_bundle/
 
 # kaic-bz input bundles (do not commit)
 papers/2025-self-organization-kaic-bz/inputs_bundle/
+
+# periodic-dna local outputs (do not commit)
+papers/2025-periodic-dna-self-stabilization/data/
+papers/2025-periodic-dna-self-stabilization/figures/
+papers/2025-periodic-dna-self-stabilization/paper/
