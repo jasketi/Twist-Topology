@@ -25,3 +25,13 @@ python papers/2025-self-organization-kaic-bz/src/run_all.py --config papers/2025
 - fetch + preprocess KaiC dataset
 - fetch + preprocess BZ dataset (SOTON/D0363)
 - compute W, PLI, dW/dt and regenerate Fig/Table outputs from real data
+
+## KaiC data (manual download)
+
+Download the KaiC source data from the eLife article (DOI: 10.7554/eLife.23539) and place the relevant CSV/TSV under:
+- 
+
+Then run (example):
+```bash
+python papers/2025-self-organization-kaic-bz/src/preprocess_kaiC.py --infile papers/2025-self-organization-kaic-bz/data/raw/kaiC/<FILE>.csv
+```
