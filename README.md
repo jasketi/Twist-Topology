@@ -22,7 +22,7 @@ papers/
   2025-episodic-sigma-lock-animal-movement/
   2025-decay-drift-nonorientable-loops/
   2025-reality-as-lock/
-  2025-sigma-lock-dynamical-systems/
+  sigma-lock-ews/
   2025-self-organization-kaic-bz/
   2025-periodic-dna-self-stabilization/
   2025-σ-locks in Molecules/

@@ -43,3 +43,31 @@ pip install -e .
 ## TODO
 
 - Connect `run_lorenz_ews.py` to the real `twistlab` pipeline and write paper figures/tables into `papers/sigma-lock-ews/results/`.
+
+
+## Reproduction targets
+
+### Table 1 (Lorenz ramp sensitivity; Δρ lead)
+
+Run (full/default):
+
+```bash
+python papers/sigma-lock-ews/src/make_table1_lorenz.py --config papers/sigma-lock-ews/configs/default.yaml --outdir papers/sigma-lock-ews/results
+```
+
+Outputs:
+
+- `papers/sigma-lock-ews/results/table1_lorenz.csv`
+- `papers/sigma-lock-ews/results/table1_lorenz_rows.tex`
+- `papers/sigma-lock-ews/results/run_meta_table1_lorenz.json`
+
+### Smoke test (pipeline scaffold)
+
+```bash
+python -m papers.sigma_lock_ews.src.run_lorenz_ews --config papers/sigma-lock-ews/configs/quick.yaml
+```
+
+Outputs:
+
+- `papers/sigma-lock-ews/results/run_meta.json`
+- `papers/sigma-lock-ews/results/PLACEHOLDER.txt`

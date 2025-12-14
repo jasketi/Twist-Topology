@@ -14,7 +14,30 @@ Batch-Runs für Table 1 (Lorenz ramp: sensitivity of the sigma-lead Δρ).
 - Ausgabe: Mediane, IQR, Erfolgsrate per Setting, als LaTeX-Zeilen
 """
 
+import argparse
+import json
+import subprocess
+from datetime import datetime
+from pathlib import Path
+
 import numpy as np
+
+def _git_commit_hash() -> str:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+    except Exception:
+        return "unknown"
+
+def _load_yaml_config(path: str | None) -> dict:
+    if not path:
+        return {}
+    try:
+        import yaml  # type: ignore
+    except Exception:
+        raise RuntimeError("PyYAML missing (needed for --config). Install: pip install pyyaml")
+    with open(path, "r") as f:
+        return yaml.safe_load(f) or {}
+
 import math
 from dataclasses import dataclass, asdict
 
@@ -260,6 +283,102 @@ def main():
         print(format_latex_row(res))
 
     print("\nDone.")
+
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", default=None, help="YAML config (optional).")
+    ap.add_argument("--outdir", default="papers/sigma-lock-ews/results")
+    ap.add_argument("--n_runs", type=int, default=None)
+    ap.add_argument("--seed", type=int, default=0)
+    args = ap.parse_args()
+
+    cfg = _load_yaml_config(args.config) if args.config else {}
+
+    # Allow config overrides for the existing global constants if present
+    # (keeps your original implementation intact)
+    global RHO0, RHO1, SIGMA, BETA, DT, K_REN, FTLE_M, DELTA_SIGMA_THRESH, W_STROBE, P_MAX, N_RUNS_DEFAULT
+    if "lorenz" in cfg:
+        lz = cfg["lorenz"]
+        RHO0 = float(lz.get("rho0", RHO0))
+        RHO1 = float(lz.get("rho1", RHO1))
+        SIGMA = float(lz.get("sigma", SIGMA))
+        BETA = float(lz.get("beta", BETA))
+        DT = float(lz.get("dt", DT))
+    if "ftle" in cfg:
+        ft = cfg["ftle"]
+        K_REN = int(ft.get("kren", K_REN))
+        FTLE_M = int(ft.get("WFTLE", FTLE_M))
+    if "return_proxy" in cfg:
+        rp = cfg["return_proxy"]
+        W_STROBE = int(rp.get("W", W_STROBE))
+        P_MAX = int(rp.get("pmax", P_MAX))
+        DELTA_SIGMA_THRESH = float(rp.get("delta_sigma_threshold", DELTA_SIGMA_THRESH))
+    if "runs" in cfg:
+        rr = cfg["runs"]
+        N_RUNS_DEFAULT = int(rr.get("N", N_RUNS_DEFAULT))
+        args.seed = int(rr.get("seed", args.seed))
+
+    if args.n_runs is not None:
+        N_RUNS_DEFAULT = int(args.n_runs)
+
+    outdir = Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    # Choose settings: either from config or fall back to a small standard set.
+    # Your original code likely expects run_batch(setting_name, T, tau, ...)
+    settings = cfg.get("settings", None)
+    if settings is None:
+        # Default set; adjust to match your manuscript Table 1 once finalized.
+        settings = [
+            {"name": "baseline", "T": 300.0, "tau": 0.2},
+            {"name": "tau=0.1", "T": 300.0, "tau": 0.1},
+            {"name": "tau=0.3", "T": 300.0, "tau": 0.3},
+            {"name": "T=200", "T": 200.0, "tau": 0.2},
+        ]
+
+    results = []
+    for s in settings:
+        res = run_batch(s.get("name","setting"), float(s.get("T",300.0)), float(s.get("tau",0.2)),
+                        n_runs=N_RUNS_DEFAULT, seed_base=args.seed)
+        results.append(res)
+
+    # Write CSV
+    csv_path = outdir / "table1_lorenz.csv"
+    with csv_path.open("w") as f:
+        f.write("setting,tau,T,delta_rho_median,delta_rho_iqr,success_fraction,n_success,n_runs\n")
+        for r in results:
+            f.write(
+                f"{r.setting},{r.tau},{r.T},"
+                f"{'' if r.delta_rho_median is None else r.delta_rho_median},"
+                f"{'' if r.delta_rho_iqr is None else r.delta_rho_iqr},"
+                f"{r.success_fraction},{r.n_success},{r.n_runs}\n"
+            )
+
+    # Write LaTeX rows
+    tex_path = outdir / "table1_lorenz_rows.tex"
+    tex_path.write_text("\n".join(format_latex_row(r) for r in results) + "\n")
+
+    # Write run meta
+    meta = {
+        "timestamp_utc": datetime.utcnow().isoformat() + "Z",
+        "git_commit": _git_commit_hash(),
+        "config": args.config,
+        "seed": args.seed,
+        "n_runs": N_RUNS_DEFAULT,
+        "settings": settings,
+        "constants": {
+            "RHO0": RHO0, "RHO1": RHO1, "SIGMA": SIGMA, "BETA": BETA,
+            "DT": DT, "K_REN": K_REN, "FTLE_M": FTLE_M,
+            "DELTA_SIGMA_THRESH": DELTA_SIGMA_THRESH, "W_STROBE": W_STROBE, "P_MAX": P_MAX
+        },
+    }
+    (outdir / "run_meta_table1_lorenz.json").write_text(json.dumps(meta, indent=2))
+
+    print("Wrote:", csv_path)
+    print("Wrote:", tex_path)
+    print("Wrote:", outdir / "run_meta_table1_lorenz.json")
 
 
 if __name__ == "__main__":
