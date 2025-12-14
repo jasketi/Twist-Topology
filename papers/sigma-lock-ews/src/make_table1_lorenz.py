@@ -17,7 +17,7 @@ Batch-Runs für Table 1 (Lorenz ramp: sensitivity of the sigma-lead Δρ).
 import argparse
 import json
 import subprocess
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -362,7 +362,7 @@ def main():
 
     # Write run meta
     meta = {
-        "timestamp_utc": datetime.utcnow().isoformat() + "Z",
+        "timestamp_utc": datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),
         "git_commit": _git_commit_hash(),
         "config": args.config,
         "seed": args.seed,
