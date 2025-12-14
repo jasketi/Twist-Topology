@@ -1,0 +1,23 @@
+mode: full
+
+lorenz:
+  sigma: 10.0
+  beta: 2.6666666667
+  rho0: 20.0
+  rho1: 35.0
+  T: 300.0
+  dt: 0.005
+  tau: 0.2
+
+return_proxy:
+  W: 400
+  pmax: 12
+  delta_sigma_threshold: 0.25
+
+ftle:
+  kren: 10
+  WFTLE: 800
+
+runs:
+  N: 50
+  seed: 123

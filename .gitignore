@@ -5,3 +5,6 @@ papers/2025-sigma-lock-animal-movement/data/raw/
 *.zip
 *.tar
 *.tar.gz
+
+# Paper outputs
+papers/sigma-lock-ews/results/
