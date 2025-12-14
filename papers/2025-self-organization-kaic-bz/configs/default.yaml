@@ -1,0 +1,17 @@
+mode: full
+
+thresholds:
+  pli_lock: 0.8
+  dw_dt_abs_max: 1.0e-4
+
+windowing:
+  periods_per_window_min: 10
+  periods_per_window_max: 20
+  overlap: 0.5
+
+runs:
+  seed: 123
+
+data:
+  kaiC: { enabled: true }
+  bz:   { enabled: true }

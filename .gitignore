@@ -16,3 +16,15 @@ __pycache__/
 *.pyd
 .pytest_cache/
 .mypy_cache/
+
+# kaic-bz paper outputs + local data
+papers/2025-self-organization-kaic-bz/results/
+papers/2025-self-organization-kaic-bz/data/raw/
+papers/2025-self-organization-kaic-bz/data/processed/
+.DS_Store
+
+# kaic-bz input bundles (do not commit)
+papers/2025-self-organization-kaic-bz/inputs_bundle/
+
+# kaic-bz input bundles (do not commit)
+papers/2025-self-organization-kaic-bz/inputs_bundle/

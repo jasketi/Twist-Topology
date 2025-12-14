@@ -1,20 +1,98 @@
 # 2025-self-organization-kaic-bz
 
-Short description of what this paper does and how to reproduce the results.
+Reproduction bundle for the manuscript:
+**Toward a Twist-Topological Account of Self-Organization: From KaiC to the Belousov–Zhabotinsky Reaction**
 
-## Paper
+## Folder layout
+- configs/: quick vs default paper parameters
+- src/: paper-specific scripts (reproduce figures/tables)
+- data/: local raw/processed data (not committed)
+- results/: generated outputs (not committed)
 
-- Title: (eintragen)
-- Preprint DOI (Zenodo): (eintragen, sobald vorhanden)
-- Journal DOI: (später)
+## Quickstart (scaffold)
+From repo root:
+```bash
+python papers/2025-self-organization-kaic-bz/src/run_all.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
 
-## Code
+## Reproduction targets
+### Table skeletons + run meta (now)
+- results/run_meta.json
+- results/tables_skeleton.csv
+- results/targets.txt
 
-- Generic algorithms: `twistlab/algorithms`
-- Specific scripts and notebooks for this paper: `notebooks/`, `src/`
+### Next wiring steps (TODO)
+- fetch + preprocess KaiC dataset
+- fetch + preprocess BZ dataset (SOTON/D0363)
+- compute W, PLI, dW/dt and regenerate Fig/Table outputs from real data
 
-## How to run
+## KaiC data (manual download)
 
-1. Create and activate a virtual environment.
-2. Install dependencies from `environment.yml`.
-3. Run the notebooks in `notebooks/` to reproduce figures and tables.
+Download the KaiC source data from the eLife article (DOI: 10.7554/eLife.23539) and place the relevant CSV/TSV under:
+- `papers/2025-self-organization-kaic-bz/data/raw/kaiC/`
+Then run (example):
+```bash
+python papers/2025-self-organization-kaic-bz/src/preprocess_kaiC.py --infile papers/2025-self-organization-kaic-bz/data/raw/kaiC/<FILE>.csv
+```
+
+
+
+### Fig S2 (hidden signals; BZ)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_figS2_hidden.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml --indir papers/2025-self-organization-kaic-bz/data/processed/bz/hidden --outdir papers/2025-self-organization-kaic-bz/results
+```
+
+Outputs:
+
+- `results/figS2_hidden_PLI_matrix.png`
+- `results/figS2_hidden_drift_matrix.png`
+- `results/figS2_hidden_pairs_classified.csv`
+- `results/figS2_hidden_summary.json`
+- `results/figS2_hidden_top20_by_PLI.csv`
+
+### Table 1 (KaiC pairwise phase metrics)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_table1_kaiC.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
+
+Outputs:
+
+- `results/table1_kaiC.csv`
+- `results/table1_kaiC_rows.tex`
+- `results/run_meta_table1_kaiC.json`
+
+### Fig 1 (BZ droplets summary)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_fig1_bz.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
+
+Outputs:
+
+- `results/fig1_bz_winding_hist.png`
+- `results/fig1_bz_period_hist.png`
+- `results/fig1_bz_input_head.csv`
+- `results/run_meta_fig1_bz.json`
+
+### Fig 2 (KaiC summary + Kuramoto fits)
+
+Run:
+
+```bash
+python papers/2025-self-organization-kaic-bz/src/make_fig2_kaiC.py --config papers/2025-self-organization-kaic-bz/configs/quick.yaml
+```
+
+Outputs:
+
+- `results/fig2A_kaiC_period_vs_LD.png`
+- `results/fig2B_kaiC_K_vs_Domega.png`
+- `results/run_meta_fig2_kaiC.json`
+
